@@ -1,6 +1,5 @@
 = Neo4j 
-Jacek Sikora <jaresh@wp.pl>
-:icons: font
+
 
 == Przygotowanie danych
 
@@ -15,7 +14,7 @@ real	21m53.298s
 user	23m13.552s
 sys		0m38.260s
 
-image:/images/neo4j_extract.png[]
+image::https://github.com/jaresh/nosql/blob/master/images/neor4_extract.png
 
 *31.6 GB danych
 ----
@@ -60,22 +59,22 @@ Import danych do bazy Neo4j:
 --relationships:POSTED "csvs/users_posts_rel.csv"
 ----
 
-----
-TIP: 
+IMPORT DONE in 26m 41s 500ms. 
+Imported:
+  25247894 nodes
+  58817742 relationships
+  126491554 properties
+
+[TIP]
 Jezeli podczas importu otrzymasz bład dotyczący braku pamieci to należy dodać
 do pliku 'neo4j-community-2.3.0/bin/neo4j-import', gdzieś przed wywołaniem 
-ostatniego polecenia (wartości -Xms -Xmx zależnie od dostepnej pamięci):
+ostatniego polecenia 
+(wartości -Xms -Xmx zależnie od dostepnej pamięci):
 
 [source, bash]
 ----
 JAVA_OPTS="-Xms2048m -Xmx2048m"
 ----
-----
-
-IMPORT DONE in 26m 41s 500ms. Imported:
-  25247894 nodes
-  58817742 relationships
-  126491554 properties
 
 == Analiza danych
 
