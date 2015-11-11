@@ -1,6 +1,5 @@
 = Neo4j 
-Jacek Sikora <jaresh@wp.pl>
-:icons: font
+
 
 == Przygotowanie danych
 
@@ -15,7 +14,7 @@ real	21m53.298s
 user	23m13.552s
 sys		0m38.260s
 
-image::images/neo4j_extract.png[]
+image::https://github.com/jaresh/nosql/blob/master/images/neor4_extract.png
 
 *31.6 GB danych
 ----
