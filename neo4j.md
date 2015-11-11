@@ -74,6 +74,8 @@ Imported:
 126491554 properties
 ```
 
+![neo4j](images/neo4j_import.png)
+
 Jezeli podczas importu otrzymasz bład dotyczący braku pamieci to należy dodać do pliku 'neo4j-community-2.3.0/bin/neo4j-import', gdzieś przed wywołaniem ostatniego polecenia (wartości -Xms -Xmx zależnie od dostepnej pamięci):
 
 ```bash
