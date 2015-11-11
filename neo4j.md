@@ -64,6 +64,7 @@ Import danych do bazy Neo4j:
 --relationships:PARENT_OF "csvs/posts_rel.csv" \
 --relationships:HAS_TAG "csvs/tags_posts_rel.csv" \
 --relationships:POSTED "csvs/users_posts_rel.csv"
+
 ```
 ```
 IMPORT DONE in 26m 41s 500ms. 
@@ -112,3 +113,71 @@ create constraint on (t:Tag) assert t.tagId is unique;
 create constraint on (u:User) assert u.userId is unique;
 create constraint on (p:Post) assert p.postId is unique;
 ```
+--
+
+10 najaktywniejszych użytkowników
+
+```
+match (u:User) 
+with u,size( (u)-[:POSTED]->()) as posts order by posts desc limit 10 
+return u.name, posts;
+
++---------------------------+
+| u.name 			| posts |
++---------------------------+
+| "Jon Skeet"  		| 30043 |
+| "Gordon Linoff"  	| 20612 |
+| "Darin Dimitrov" 	| 15854 |
+| "BalusC" 			| 14256 |
+| "CommonsWare" 	| 13754 |
+| "anubhava" 		| 13576 |
+| "Hans Passant" 	| 13349 |
+| "Martijn Pieters" | 12995 |
+| "SLaks"  			| 11386 |
+| "Marc Gravell" 	| 11055 |
++---------------------------+
+10 rows
+269295 ms
+
+
+```
+
+--
+
+Tagi występujące razem z tagiem "javascript"
+
+```
+match (t:Tag {tagId:"javascript"})<-[:HAS_TAG]-()-[:HAS_TAG]->(other:Tag) 
+WITH other, count(*) as freq order by freq desc limit 5
+RETURN other.tagId,freq;
+
++----------------------+
+| other.tagId | freq   |
++----------------------+
+| "jquery"    | 243932 |
+| "html"      | 119933 |
+| "css"       | 54170  |
+| "php"       | 50525  |
+| "ajax"      | 39734  |
++----------------------+
+5 rows
+209501 ms
+
+
+```
+
+--
+
+Posty pierwszych 25 uzytkowników
+
+```
+MATCH ()-[r:POSTED]->() RETURN r LIMIT 25
+
+```
+
+![neo4j](images/graph_neo4j.png)
+
+
+
+
+
