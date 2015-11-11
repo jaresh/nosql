@@ -1,5 +1,6 @@
-# Neo4j 
-Jacek Sikora <jaresh@wp.pl>
+# Neo4j        
+####Jacek Sikora <jaresh@wp.pl>
+
 
 ## Pobranie danych
 
@@ -24,6 +25,7 @@ sys		0m38.260s
 
 31.6 GB danych
 
+--
 
 Ściągamy skrypt do przetwarzenia danych do .csv i instalujemy brakujące paczki : 
 
@@ -33,7 +35,7 @@ git clone https://github.com/mdamien/stackoverflow-neo4j
 sudo apt-get install python3-setuptools
 easy_install3 xmltodict
 ```
-
+--
 Uruchamiamy skrypt który stworzy nam pliki csv wraz z relacjami:
 
 ```bash
@@ -48,7 +50,7 @@ sys	  0m30.015s
 
 4.2 GB danych
 
-
+--
 Import danych do bazy Neo4j:
 
 ```bash
@@ -71,26 +73,22 @@ Imported:
 126491554 properties
 ```
 
-----
-Jezeli podczas importu otrzymasz bład dotyczący braku pamieci to należy dodać
-do pliku 'neo4j-community-2.3.0/bin/neo4j-import', gdzieś przed wywołaniem 
-ostatniego polecenia (wartości -Xms -Xmx zależnie od dostepnej pamięci):
+Jezeli podczas importu otrzymasz bład dotyczący braku pamieci to należy dodać do pliku 'neo4j-community-2.3.0/bin/neo4j-import', gdzieś przed wywołaniem ostatniego polecenia (wartości -Xms -Xmx zależnie od dostepnej pamięci):
 
 ```bash
 JAVA_OPTS="-Xms2048m -Xmx2048m"
 ```
-----
 
-== Analiza danych
+## Analiza danych
 
 Ilość rekordów w bazie:
-----
 ```
 neo4j-sh (?)$ match (n) return head(labels(n)) as label, count(*);
 ```
 
 ![neo4j](images/neo4j_1query.png)
-----
+
+--
 
 Dodanie indeksów:
 
