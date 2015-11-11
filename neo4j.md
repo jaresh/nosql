@@ -170,7 +170,7 @@ RETURN other.tagId,freq;
 
 --
 
-Posty pierwszych 25 uzytkowników
+Posty 25 uzytkowników:
 
 ```
 MATCH ()-[r:POSTED]->() RETURN r LIMIT 25
