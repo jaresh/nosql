@@ -1,0 +1,10 @@
+= Neo4j 
+Jacek Sikora <jaresh@wp.pl>
+:icons: font
+
+== Przygotowanie danych
+
+[source, bash]
+----
+time for i in *.7z; do 7za -y -oextracted x $i; done
+----
