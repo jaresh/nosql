@@ -1,3 +1,0 @@
-## Zaliczenie, Jacek Sikora
-
-TODO
