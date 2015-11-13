@@ -3,7 +3,7 @@
 Rozwiązania zadań z przedmiotu *Bazy NoSQL*:
 
 1. [Zaliczenie](neo4j.md):
- - [ ] Neo4j
+ - [ ] Neo4j + geojason
 1. [Egzamin](egzamin.md)
  - [ ] Aggregation Pipeline
  - [ ] MapReduce
