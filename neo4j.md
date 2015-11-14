@@ -17,19 +17,11 @@ Dodanie indeksów:
 
 ```
 create index on :Post(title);
-create index on :Post(createdAt);
-create index on :Post(score);
 create index on :Post(views);
-create index on :Post(favorites);
-create index on :Post(answers);
 create index on :Post(score);
 
-create index on :User(name);
-create index on :User(createdAt);
-create index on :User(reputation);
-create index on :User(age);
-
-create index on :Tag(count);
+create index on :User(displayname);
+create index on :User(views);
 
 create constraint on (t:Tag) assert t.tagId is unique;
 create constraint on (u:User) assert u.userId is unique;
