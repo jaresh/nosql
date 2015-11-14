@@ -1,8 +1,13 @@
 # Neo4j        
 ####Jacek Sikora <jaresh@wp.pl>
 
+#Spis treści
+- [Analiza danych](#analiza-danych)
+- [Geojason](#geojason)
+- [Pobranie danych](#pobranie-danych)
+- [Przygotowanie danych](#przygotowanie-danych)
 
-## Analiza danych
+#Analiza danych
 
 Ilość rekordów w bazie:
 ```
@@ -91,8 +96,9 @@ MATCH ()-[r:POSTED]->() RETURN r LIMIT 25
 
 ![neo4j](images/graph_neo4j.png)
 
+#Geojason
 
-## Pobranie danych
+#Pobranie danych
 
 [Stack Overflow dump files](https://archive.org/details/stackexchange)
 
