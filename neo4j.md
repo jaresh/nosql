@@ -3,7 +3,7 @@
 
 #Spis treści
 - [Analiza danych](#analiza-danych)
-- [Geojson](#geojson)
+- [Neo4j Spatial](#neo4j-spatial) - geolokalizacja
 - [Pobranie danych](#pobranie-danych)
 - [Przygotowanie danych](#przygotowanie-danych)
 
@@ -40,7 +40,6 @@ create constraint on (p:Post) assert p.postId is unique;
 match (u:User) 
 with u,size( (u)-[:POSTED]->()) as posts order by posts desc limit 10 
 return u.name, posts;
-
 ```
 
 | Name		| Posts |
@@ -67,7 +66,6 @@ Tagi występujące razem z tagiem "javascript"
 match (t:Tag {tagId:"javascript"})<-[:HAS_TAG]-()-[:HAS_TAG]->(other:Tag) 
 WITH other, count(*) as freq order by freq desc limit 5
 RETURN other.tagId,freq;
-
 ```
 | Tag | freq   |
 |-------------|--------|
@@ -86,7 +84,6 @@ Posty 25 uzytkowników:
 
 ```
 MATCH ()-[r:POSTED]->() RETURN r LIMIT 25
-
 ```
 
 ![neo4j](images/graph_neo4j.png)
@@ -98,7 +95,6 @@ Top 5 tagów użytych przez użytkownika "Jon Skeet" w odpowiedziach:
 match (u:User)-[:POSTED]->()-[:HAS_TAG]->(t:Tag) 
 where u.displayname = "Jon Skeet" 
 return t.tagId,count(*) as posts order by posts desc limit 5;
-
 ```
 | Tag    | posts |
 |------------|-------|
@@ -134,7 +130,6 @@ MATCH (u)-[:POSTED]->()<-[:PARENT_OF]-(p)-[:HAS_TAG]->(other:Tag)
 WHERE NOT (p)-[:HAS_TAG]->(neo)
 WITH u,other,count(*) as freq2 order by freq2 desc 
 RETURN u.displayname,collect(distinct other.tagId)[1..5] as tags;
-
 ```
 
 | Name       | tags                                                     |
@@ -169,7 +164,7 @@ RETURN node,node1 LIMIT 20;
 ![neo4j](images/tagic.png)
 
 
-#Geojson
+#Neo4j Spatial
 
 Dane to 45387 polskie miasta.
 
@@ -229,7 +224,6 @@ sys	  0m30.015s
 Import danych do bazy Neo4j:
 
 ```bash
-
 ./../../Programy/neo4j-community-2.3.0/bin/neo4j-import \
 --into ../../Programy/neo4j-community-2.3.0/data/graph.db \
 --id-type string \
@@ -240,8 +234,6 @@ Import danych do bazy Neo4j:
 --relationships:HAS_TAG "csvs/tags_posts_rel.csv" \
 --relationships:POSTED "csvs/users_posts_rel.csv"
 
-```
-```
 IMPORT DONE in 26m 41s 500ms. 
 Imported:
 25247894 nodes
@@ -270,7 +262,6 @@ Import danych do bazy z konsoli Neo4j:
 LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/GeoLiteCity-LocationPL.csv" AS csvLine
 CREATE (c:City { name: csvLine.city, lat: toFloat(csvLine.latitude), lon: toFloat(csvLine.longitude) });
 
-
 ```
 
 --
@@ -297,7 +288,6 @@ Inicjalizacja warstwy i dodanie indeksu:
         "lon" : "lon" 
     } 
 }
-
 ```
 
 --
@@ -315,15 +305,12 @@ Podłaczenie danych do indeksów 'Spacial":
 skrypt "add_spacial.sh":
 
 ```
-
 #!/bin/bash
 for i in `seq 0 45386`;
 do
       curl -i -H "Accept: application/json" -H Content-Type:lication/json -X POST -v http://localhost:7474/db/data/ext/SpatialPlugin/graphdb/addNodeToLayer -d "{ \"layer\": \"geom\",\"node\": \"http://localhost:7474/db/data/node/$i\"}"
 
 done
-
-
 ```
 
 
