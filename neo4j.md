@@ -250,10 +250,10 @@ JAVA_OPTS="-Xms2048m -Xmx2048m"
 ```
 --
 
-#Geojson przygotowanie danych
+#Neo4j Spatial przygotowanie danych
 
 --
-Po pobraniu współrzednych miast obrabiam plik aby pozostały tylko Polskie miasta.
+Po pobraniu współrzednych miast obrabiam plik aby pozostały tylko polskie miasta.
 
 
 Import danych do bazy z konsoli Neo4j:
@@ -300,7 +300,7 @@ MATCH (n:City) where not has(n.id) set n.id = id(n) return id(n) as id
 
 --
 
-Podłaczenie danych do indeksów 'Spacial":
+Podłaczenie danych do indeksów 'Spacial':
 
 skrypt "add_spacial.sh":
 
