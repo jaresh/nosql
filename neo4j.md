@@ -41,9 +41,10 @@ match (u:User)
 with u,size( (u)-[:POSTED]->()) as posts order by posts desc limit 10 
 return u.name, posts;
 
-+---------------------------+
-| u.name 			| posts |
-+---------------------------+
+```
+
+| Name		| Posts |
+|-------------------|-------|
 | "Jon Skeet"  		| 30043 |
 | "Gordon Linoff"  	| 20612 |
 | "Darin Dimitrov" 	| 15854 |
@@ -54,12 +55,9 @@ return u.name, posts;
 | "Martijn Pieters" | 12995 |
 | "SLaks"  			| 11386 |
 | "Marc Gravell" 	| 11055 |
-+---------------------------+
+
 10 rows
 269295 ms
-
-
-```
 
 --
 
