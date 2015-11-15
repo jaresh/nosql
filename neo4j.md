@@ -97,40 +97,71 @@ MATCH ()-[r:POSTED]->() RETURN r LIMIT 25
 ![neo4j](images/graph_neo4j.png)
 
 --
-Top 5 tagów użytych przez użytkownika "Jon Skeet" w odpowiedziach.
+Top 5 tagów użytych przez użytkownika "Jon Skeet" w odpowiedziach:
 
 ```
 match (u:User)-[:POSTED]->()-[:HAS_TAG]->(t:Tag) 
 where u.displayname = "Jon Skeet" 
-return t,count(*) as posts order by posts desc limit 5;
+return t.tagId,count(*) as posts order by posts desc limit 5;
 
-
-+------------------------------------------+
-| t                                | posts |
-+------------------------------------------+
-| Node[25209695]{tagId:"c#"}       | 11    |
-| Node[25209689]{tagId:".net"}     | 7     |
-| Node[25231637]{tagId:"c#-4.0"}   | 5     |
-| Node[25214219]{tagId:".net-4.0"} | 4     |
-| Node[25209745]{tagId:"asp.net"}  | 3     |
-+------------------------------------------+
-
++--------------------+
+| t.tagId    | posts |
++--------------------+
+| "c#"       | 11    |
+| ".net"     | 7     |
+| "c#-4.0"   | 5     |
+| ".net-4.0" | 4     |
+| "com"      | 3     |
++--------------------+
 5 rows
-434 ms
+93 ms
+
 
 ```
 --
-Jak połączeni są użytkownicy "Darin dimitrov" z "Michael Hunger"
+Jak połączeni są użytkownicy "Darin dimitrov" z "Michael Hunger":
 
 ```
 MATCH path = allShortestPaths(
      (u:User {displayname:"Darin Dimitrov"})-[*]-(me:User {displayname:"Michael Hunger"}))
-RETURN path
+RETURN path limit 10
 ```
 
 ![neo4j](images/polaczenie.png)
 
 --
+
+Najczęściej odpowiadajacy użytkownicy i ich aktywność w tematyce:
+
+```
+MATCH (neo:Tag {tagId:"neo4j"})<-[:HAS_TAG]-()-[:PARENT_OF]->()<-[:POSTED]-(u:User) 
+WITH neo,u, count(*) as freq order by freq desc limit 10
+
+MATCH (u)-[:POSTED]->()<-[:PARENT_OF]-(p)-[:HAS_TAG]->(other:Tag)
+WHERE NOT (p)-[:HAS_TAG]->(neo)
+WITH u,other,count(*) as freq2 order by freq2 desc 
+RETURN u.displayname,collect(distinct other.tagId)[1..5] as tags;
+
+
++--------------------------------------------------------------------------------+
+| u.displayname       | tags                                                     |
++--------------------------------------------------------------------------------+
+| "Luanne"            | ["jersey","cypher","jaxb"]                               |
+| "Wes Freeman"       | ["go","node.js","java","php"]                            |
+| "Mattias Persson"   | []                                                       |
+| "Peter Neubauer"    | ["nosql","graph","java","graph-databases"]               |
+| "Michael Hunger"    | ["nosql","spring-data-neo4j","graph-databases","cypher"] |
+| "tstorms"           | ["spring-data-neo4j","spring","jini","compare"]          |
+| "ulkas"             | ["sql","mysql","jquery","arrays"]                        |
+| "Stefan Armbruster" | ["groovy","intellij-idea","tomcat","grails-plugin"]      |
+| "Nicholas"          | ["android","eclipse","arrays","algorithm"]               |
+| "jjaderberg"        | ["jena","osx-lion","py2app","java"]                      |
++--------------------------------------------------------------------------------+
+
+10 rows
+161 ms
+
+```
 
 #Geojason
 
