@@ -162,6 +162,20 @@ RETURN u.displayname,collect(distinct other.tagId)[1..5] as tags;
 161 ms
 
 ```
+--
+
+20 postów z tagami "c#":
+
+```
+MATCH (node:Tag {tagId:'c#'})<-[:HAS_TAG]-(node1:Post)
+RETURN node,node1 LIMIT 20;
+
+20 rows 
+64 ms
+```
+
+![neo4j](images/tagic.png)
+
 
 #Geojason
 
