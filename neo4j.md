@@ -96,6 +96,42 @@ MATCH ()-[r:POSTED]->() RETURN r LIMIT 25
 
 ![neo4j](images/graph_neo4j.png)
 
+--
+Top 5 tagów użytych przez użytkownika "Jon Skeet" w odpowiedziach.
+
+```
+match (u:User)-[:POSTED]->()-[:HAS_TAG]->(t:Tag) 
+where u.displayname = "Jon Skeet" 
+return t,count(*) as posts order by posts desc limit 5;
+
+
++------------------------------------------+
+| t                                | posts |
++------------------------------------------+
+| Node[25209695]{tagId:"c#"}       | 11    |
+| Node[25209689]{tagId:".net"}     | 7     |
+| Node[25231637]{tagId:"c#-4.0"}   | 5     |
+| Node[25214219]{tagId:".net-4.0"} | 4     |
+| Node[25209745]{tagId:"asp.net"}  | 3     |
++------------------------------------------+
+
+5 rows
+434 ms
+
+```
+--
+Jak połączeni są użytkownicy "Darin dimitrov" z "Michael Hunger"
+
+```
+MATCH path = allShortestPaths(
+     (u:User {displayname:"Darin Dimitrov"})-[*]-(me:User {displayname:"Michael Hunger"}))
+RETURN path
+```
+
+![neo4j](images/polaczenie.png)
+
+--
+
 #Geojason
 
 #Pobranie danych
