@@ -258,11 +258,9 @@ JAVA_OPTS="-Xms2048m -Xmx2048m"
 ```
 --
 
-#Geojson Przygotowanie danych
+#Geojson przygotowanie danych
 
 --
-
-#Import danych do bazy z konsoli Neo4j
 
 Dzielę plik z danymi na części i importuje do bazy:
 
@@ -275,7 +273,7 @@ Po tej operacji należy poprawić rozszerzenie plików na ".csv".
 
 --
 
-Neo4j-shell komendy:
+Import danych do bazy z konsoli Neo4j:
 
 ```
 LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new.csv" AS csvLine
@@ -326,13 +324,17 @@ Inicjalizacja warstwy i dodanie indeksu:
 
 Podłaczenie danych do indeksów 'Spacial":
 
-```
-:POST /db/data/ext/SpatialPlugin/graphdb/addNodeToLayer
+skrypt "add_spacial.sh":
 
-{ 
-    "layer": "geom", 
-    "node": "http://localhost:7474/db/data/node/<my_nodeid_goes_here>" 
-}
+```
+
+#!/bin/bash
+for i in `seq 1480000 2220052`;
+do
+      curl -i -H "Accept: application/json" -H Content-Type:lication/json -X POST -v http://localhost:7474/db/data/ext/SpatialPlugin/graphdb/addNodeToLayer -d "{ \"layer\": \"geom\",\"node\": \"http://localhost:7474/db/data/node/$i\"}"
+
+done
+
 
 ```
 
