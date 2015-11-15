@@ -149,10 +149,11 @@ RETURN u.displayname,collect(distinct other.tagId)[1..5] as tags;
 | Stefan Armbruster | groovy,intellij-idea,tomcat,grails-plugin      |
 | Nicholas          | android,eclipse,arrays,algorithm              |
 | jjaderberg       | jena,osx-lion,py2app,java                     |
-+--------------------------------------------------------------------------------+
+
 
 10 rows
 161 ms
+
 --
 
 20 postów z tagami "c#":
