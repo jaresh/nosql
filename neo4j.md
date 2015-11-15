@@ -3,7 +3,7 @@
 
 #Spis treści
 - [Analiza danych](#analiza-danych)
-- [Geojason](#geojason)
+- [Geojson](#geojson)
 - [Pobranie danych](#pobranie-danych)
 - [Przygotowanie danych](#przygotowanie-danych)
 
@@ -169,11 +169,17 @@ RETURN node,node1 LIMIT 20;
 ![neo4j](images/tagic.png)
 
 
-#Geojason
+#Geojson
 
+
+
+--
 #Pobranie danych
 
 [Stack Overflow dump files](https://archive.org/details/stackexchange)
+
+[MAX MIND](http://dev.maxmind.com/geoip/legacy/geolite/) - Lokalizacje miejscowosci na całym świecie 
+
 
 ## Przygotowanie danych
 
@@ -249,6 +255,85 @@ Jezeli podczas importu otrzymasz bład dotyczący braku pamieci to należy doda�
 
 ```bash
 JAVA_OPTS="-Xms2048m -Xmx2048m"
+```
+--
+
+#Geojson Przygotowanie danych
+
+--
+
+#Import danych do bazy z konsoli Neo4j
+
+Dzielę plik z danymi na części i importuje do bazy:
+
+```bash
+
+split -l 100000 GeoLiteCity-Location.csv new.c
+
+```
+Po tej operacji należy poprawić rozszerzenie plików na ".csv".
+
+--
+
+Neo4j-shell komendy:
+
+```
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new2.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new3.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new4.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new5.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new6.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new7.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new8.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+
+```
+
+--
+
+Inicjalizacja warstwy i dodanie indeksu:
+
+```
+:POST /db/data/ext/SpatialPlugin/graphdb/addSimplePointLayer
+
+{ 
+    "layer" : "geom", 
+    "lat" : "lat", 
+    "lon" : "lon" 
+}
+
+:POST /db/data/index/node/ 
+
+{ 
+    "name" : "geom", 
+    "config" : { 
+        "provider" : "spatial", 
+        "geometry_type" : "point", 
+        "lat" : "lat", 
+        "lon" : "lon" 
+    } 
+}
+
+```
+
+Podłaczenie danych do indeksów 'Spacial":
+
+```
+:POST /db/data/ext/SpatialPlugin/graphdb/addNodeToLayer
+
+{ 
+    "layer": "geom", 
+    "node": "http://localhost:7474/db/data/node/<my_nodeid_goes_here>" 
+}
+
 ```
 
 
