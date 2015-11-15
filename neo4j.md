@@ -3,7 +3,7 @@
 
 #Spis treści
 - [Analiza danych](#analiza-danych)
-- [Neo4j Spatial](#neo4j-spatial) - geolokalizacja
+- [Neo4j Spatial](#neo4j-spatial) \- geolokalizacja
 - [Pobranie danych](#pobranie-danych)
 - [Przygotowanie danych](#przygotowanie-danych)
 
@@ -252,7 +252,6 @@ JAVA_OPTS="-Xms2048m -Xmx2048m"
 
 #Neo4j Spatial przygotowanie danych
 
---
 Po pobraniu współrzednych miast obrabiam plik aby pozostały tylko polskie miasta.
 
 
