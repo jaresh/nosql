@@ -171,7 +171,7 @@ RETURN node,node1 LIMIT 20;
 
 #Geojson
 
-
+Dane to 45387 polskie miasta.
 
 --
 #Pobranie danych
@@ -261,37 +261,15 @@ JAVA_OPTS="-Xms2048m -Xmx2048m"
 #Geojson przygotowanie danych
 
 --
+Po pobraniu współrzednych miast obrabiam plik aby pozostały tylko Polskie miasta.
 
-Dzielę plik z danymi na części i importuje do bazy:
-
-```bash
-
-split -l 100000 GeoLiteCity-Location.csv new.c
-
-```
-Po tej operacji należy poprawić rozszerzenie plików na ".csv".
-
---
 
 Import danych do bazy z konsoli Neo4j:
 
 ```
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new2.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new3.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new4.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new5.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new6.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new7.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
-LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/new8.csv" AS csvLine
-CREATE (c:City { name: csvLine.city, lat: csvLine.lat, lon: csvLine.lon });
+LOAD CSV WITH HEADERS FROM "file:/home/jacek/nosql_dane/GeoLiteCity-LocationPL.csv" AS csvLine
+CREATE (c:City { name: csvLine.city, lat: toFloat(csvLine.latitude), lon: toFloat(csvLine.longitude) });
+
 
 ```
 
@@ -322,6 +300,16 @@ Inicjalizacja warstwy i dodanie indeksu:
 
 ```
 
+--
+
+Dodanie indeksow do miast:
+
+```
+MATCH (n:City) where not has(n.id) set n.id = id(n) return id(n) as id
+```
+
+--
+
 Podłaczenie danych do indeksów 'Spacial":
 
 skrypt "add_spacial.sh":
@@ -329,7 +317,7 @@ skrypt "add_spacial.sh":
 ```
 
 #!/bin/bash
-for i in `seq 1480000 2220052`;
+for i in `seq 0 45386`;
 do
       curl -i -H "Accept: application/json" -H Content-Type:lication/json -X POST -v http://localhost:7474/db/data/ext/SpatialPlugin/graphdb/addNodeToLayer -d "{ \"layer\": \"geom\",\"node\": \"http://localhost:7474/db/data/node/$i\"}"
 
