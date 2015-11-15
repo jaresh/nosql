@@ -45,16 +45,16 @@ return u.name, posts;
 
 | Name		| Posts |
 |-------------------|-------|
-| "Jon Skeet"  		| 30043 |
-| "Gordon Linoff"  	| 20612 |
-| "Darin Dimitrov" 	| 15854 |
-| "BalusC" 			| 14256 |
-| "CommonsWare" 	| 13754 |
-| "anubhava" 		| 13576 |
-| "Hans Passant" 	| 13349 |
-| "Martijn Pieters" | 12995 |
-| "SLaks"  			| 11386 |
-| "Marc Gravell" 	| 11055 |
+| Jon Skeet 		| 30043 |
+| Gordon Linoff  	| 20612 |
+| Darin Dimitrov 	| 15854 |
+| BalusC 			| 14256 |
+| CommonsWare 	| 13754 |
+| anubhava 		| 13576 |
+| Hans Passant 	| 13349 |
+| Martijn Pieters | 12995 |
+| SLaks  			| 11386 |
+| Marc Gravell	| 11055 |
 
 10 rows
 269295 ms
@@ -68,20 +68,17 @@ match (t:Tag {tagId:"javascript"})<-[:HAS_TAG]-()-[:HAS_TAG]->(other:Tag)
 WITH other, count(*) as freq order by freq desc limit 5
 RETURN other.tagId,freq;
 
-+----------------------+
-| other.tagId | freq   |
-+----------------------+
-| "jquery"    | 243932 |
-| "html"      | 119933 |
-| "css"       | 54170  |
-| "php"       | 50525  |
-| "ajax"      | 39734  |
-+----------------------+
+```
+| Tag | freq   |
+|-------------|--------|
+| jquery    | 243932 |
+| html      | 119933 |
+| css       | 54170  |
+| php      | 50525  |
+| ajax      | 39734  |
+
 5 rows
 209501 ms
-
-
-```
 
 --
 
@@ -102,20 +99,18 @@ match (u:User)-[:POSTED]->()-[:HAS_TAG]->(t:Tag)
 where u.displayname = "Jon Skeet" 
 return t.tagId,count(*) as posts order by posts desc limit 5;
 
-+--------------------+
-| t.tagId    | posts |
-+--------------------+
-| "c#"       | 11    |
-| ".net"     | 7     |
-| "c#-4.0"   | 5     |
-| ".net-4.0" | 4     |
-| "com"      | 3     |
-+--------------------+
+```
+| Tag    | posts |
+|------------|-------|
+| c#      | 11    |
+| .net     | 7     |
+| c#-4.0   | 5     |
+| .net-4.0 | 4     |
+| com      | 3     |
+
 5 rows
 93 ms
 
-
-```
 --
 Jak połączeni są użytkownicy "Darin dimitrov" z "Michael Hunger":
 
@@ -140,26 +135,24 @@ WHERE NOT (p)-[:HAS_TAG]->(neo)
 WITH u,other,count(*) as freq2 order by freq2 desc 
 RETURN u.displayname,collect(distinct other.tagId)[1..5] as tags;
 
+```
 
-+--------------------------------------------------------------------------------+
-| u.displayname       | tags                                                     |
-+--------------------------------------------------------------------------------+
-| "Luanne"            | ["jersey","cypher","jaxb"]                               |
-| "Wes Freeman"       | ["go","node.js","java","php"]                            |
-| "Mattias Persson"   | []                                                       |
-| "Peter Neubauer"    | ["nosql","graph","java","graph-databases"]               |
-| "Michael Hunger"    | ["nosql","spring-data-neo4j","graph-databases","cypher"] |
-| "tstorms"           | ["spring-data-neo4j","spring","jini","compare"]          |
-| "ulkas"             | ["sql","mysql","jquery","arrays"]                        |
-| "Stefan Armbruster" | ["groovy","intellij-idea","tomcat","grails-plugin"]      |
-| "Nicholas"          | ["android","eclipse","arrays","algorithm"]               |
-| "jjaderberg"        | ["jena","osx-lion","py2app","java"]                      |
+| Name       | tags                                                     |
+|---------------------|----------------------------------------------------------|
+| Luanne            | jersey,cypher,jaxb                               |
+| Wes Freeman       | go,node.js,java,php                            |
+| Mattias Persson   | []                                                       |
+| Peter Neubauer   | nosql,graph,java,graph-databases              |
+| Michael Hunger    | nosql,spring-data-neo4j,graph-databases,cypher |
+| tstorms           | spring-data-neo4j,spring,jini,compare        |
+| ulkas             | sql,mysql,jquery,arrays                       |
+| Stefan Armbruster | groovy,intellij-idea,tomcat,grails-plugin      |
+| Nicholas          | android,eclipse,arrays,algorithm              |
+| jjaderberg       | jena,osx-lion,py2app,java                     |
 +--------------------------------------------------------------------------------+
 
 10 rows
 161 ms
-
-```
 --
 
 20 postów z tagami "c#":
