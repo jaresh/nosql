@@ -3,7 +3,7 @@
 
 #Spis treści
 - [Analiza danych](#analiza-danych)
-- [Neo4j Spatial](#neo4j-spatial) - geolokalizacja
+- [Neo4j Spatial](#neo4j-spatial) - lokalizacja
 - [Pobranie danych](#pobranie-danych)
 - [Przygotowanie danych](#przygotowanie-danych)
 
