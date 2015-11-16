@@ -242,23 +242,7 @@ UNION
 START n=node:geom('withinDistance:[54.35,18.615,3.0]') return n.name
 ```
 
-| Nazwa  |
-|--------|
-|Mojusz|
-|Reskowo|
-|Garcz|
-|Lapalice|
-|Prokowo|
-|Kartuzy|
-|Kobysewo|
-|Smoldzino|
-|Glincz|
-|Pepowo|
-|Lezno|
-|Lezne|
-|Kelpin|
-|Kielpinek|
-|Wrzeszcz|
+Mojusz -> Reskowo -> Garcz -> Lapalice -> Prokowo -> Kartuzy -> Kobysewo -> Smoldzino -> Glincz -> Pepowo -> Lezno -> Lezne -> Kelpin -> Kielpinek -> Wrzeszcz
 
 #Pobranie danych
 
