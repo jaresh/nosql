@@ -213,7 +213,9 @@ match (n:City) where n.lat < 54.8358 AND n.lat >  53.4909 AND n.lon < 19.6470 AN
 
 Ilość miejscowości w woj. pomorskim (Bound box)
 
+```
 start node = node:geom('bbox:[16.6992,19.6470,53.4909,54.8358]') return count(node.name)
+```
 
 | Ilość  |
 |--------|
