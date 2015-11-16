@@ -169,6 +169,95 @@ RETURN node,node1 LIMIT 20;
 Dane to 45387 polskie miasta.
 
 --
+Miejscowości w odległości 5 km od miejscowości Piątek (centrum Polski)
+
+```
+start n = node:geom("withinDistance:[52.069167, 19.480556,5.0]") return n
+```
+
+| Nazwa    |
+|--------|
+|Krzyszkowice|
+|Pokrzywnica|
+|Sulkowice|
+|Bielice|
+|Michalowka|
+|Goslub|
+|Konarzew|
+|Czernikow|
+
+![neo4j](images/piatek.png)
+
+--
+
+10 miejscowosci w woj. pomorskim
+
+```
+match (n:City) where n.lat < 54.8358 AND n.lat >  53.4909 AND n.lon < 19.6470 AND n.lon >  16.6992 return n.name Limit 10
+```
+
+| Nazwa    |
+|--------|
+|Gdansk|
+|Gdynia|
+|Kwidzyn|
+|Slupsk|
+|Sopot|
+|Bytow|
+|Starogard Gdanski|
+|Tczew|
+|Pelplin|
+|Chwaszczyno|
+
+--
+
+Ilość miejscowości w woj. pomorskim (Bound box)
+
+start node = node:geom('bbox:[16.6992,19.6470,53.4909,54.8358]') return count(node.name)
+
+| Ilość  |
+|--------|
+|991|
+--
+
+Miejscowości na lini między miejscowościami Mojusz-Gdansk
+
+```
+START n=node:geom('withinDistance:[54.35,17.9667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.0667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.1667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.2667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.3667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.4667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.5667,3.0]') return n.name
+UNION
+START n=node:geom('withinDistance:[54.35,18.615,3.0]') return n.name
+```
+
+| Nazwa  |
+|--------|
+|Mojusz|
+|Reskowo|
+|Garcz|
+|Lapalice|
+|Prokowo|
+|Kartuzy|
+|Kobysewo|
+|Smoldzino|
+|Glincz|
+|Pepowo|
+|Lezno|
+|Lezne|
+|Kelpin|
+|Kielpinek|
+|Wrzeszcz|
+
 #Pobranie danych
 
 [Stack Overflow dump files](https://archive.org/details/stackexchange)
