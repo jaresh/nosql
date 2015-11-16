@@ -222,7 +222,7 @@ start node = node:geom('bbox:[16.6992,19.6470,53.4909,54.8358]') return count(no
 |991|
 --
 
-Miejscowości na lini między miejscowościami Mojusz-Gdansk
+Miejscowości na lini między miejscowościami Mojusz-Gdańsk
 
 ```
 START n=node:geom('withinDistance:[54.35,17.9667,3.0]') return n.name
