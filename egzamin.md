@@ -150,6 +150,23 @@ printjson(result);
 
 Wynik
 
+| Crime type		| count |
+|-------------------|-------|
+|Anti-social behaviour|2035156|
+|Bicycle theft|95021|
+|Burglary|427448|
+|Criminal damage and arson|516930|
+|Drugs|177470|
+|Other crime|53501|
+|Other theft|515840|
+|Possession of weapons|21415|
+|Public order|152113|
+|Robbery|52416|
+|Shoplifting|331093|
+|Theft from the person|81964|
+|Vehicle crime|356789|
+|Violence and sexual offences|839520|
+
 ![aggr3](images/aggr3.png)
 
 
