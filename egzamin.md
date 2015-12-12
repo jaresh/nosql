@@ -7,12 +7,11 @@
 # Przygotowanie danych
 
 
-Przestępstwa popełnione w Wilekiej Brytani od grudnia 2010 do października 2015.
-
-[LINK](https://data.police.uk/data/)
+[Przestępstwa popełnione w Wilekiej Brytani od grudnia 2010 do października 2015.](https://data.police.uk/data/)
 
 5.7 GB
 
+--
 Skrypt [imports.sh](scripts/imports.sh) do importu danych z plików .csv:
 ```bash
 
@@ -25,7 +24,7 @@ do
 	../../Programy/mongodb-linux-x86_64-3.2.0/bin/mongoimport -d Crimes -c list --type csv --file $i --headerline
 done
 ```
-
+--
 Import plików do bazy:
 ```bash
 time ./imports.sh
@@ -37,5 +36,19 @@ sys	5m24.873s
 ```
 
 ![mongo](images/importmongo.png)
+--
+Najważniejsze statystyki bazy:
+
+```js
+db.list.stats()
+{
+	"ns" : "Crimes.list",
+	"count" : 29563143,
+	"size" : 14698514832,
+	"avgObjSize" : 497
+}
+```
+
+
 
 
