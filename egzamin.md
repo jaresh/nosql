@@ -49,6 +49,49 @@ db.list.stats()
 }
 ```
 
+# Agregacje
 
+## Agregacja 1
 
+Najczęstsze przestępstwa w czerwcu 2012 roku:
+
+```js
+var connection = new Mongo();
+var db = connection.getDB('Crimes');
+
+var match = { $match: {"Month": "2012-6"} };
+var group = { $group: {_id: "$Crime type", "total": {$sum: 1}} };
+var sort = { $sort: {"total": -1} };
+var limit = { $limit : 5};
+
+var results = db.list.aggregate(
+	match,
+	group,
+	sort,
+	limit
+);
+
+printjson(results);
+```
+[aggregation1.js](scripts/aggregation1.js)
+
+Wynik
+```js
+{ "_id" : "Anti-social behaviour", "total" : 204751 }
+{ "_id" : "Other theft", "total" : 61978 }
+{ "_id" : "Violent crime", "total" : 56816 }
+{ "_id" : "Criminal damage and arson", "total" : 44922 }
+{ "_id" : "Burglary", "total" : 38791 }
+
+```
+
+| Crime type		| count |
+|-------------------|-------|
+| Anti-social behaviour		| 204751 |
+| Other theft  	| 61978 |
+| Violent crime 	| 56816 |
+| Criminal damage and arson			| 44922 |
+| Burglary 	| 38791 |
+
+![aggr1](images/aggr1.png)
 
