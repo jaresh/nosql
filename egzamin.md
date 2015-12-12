@@ -1,3 +1,7 @@
-## Egzamin, Włodek Bzyl
+# Aggregation Pipeline      
+####Jacek Sikora <jaresh@wp.pl>
 
-TODO
+#Spis treści
+- [Przygotowanie danych](#przygotowanie-danych)
+
+## Przygotowanie danych
