@@ -55,33 +55,18 @@ db.list.stats()
 
 Najczęstsze przestępstwa w czerwcu 2012 roku:
 
+[JavaScript](scripts/aggregation1.js)
 ```js
 var connection = new Mongo();
 var db = connection.getDB('Crimes');
 
-var match = { $match: {"Month": "2012-6"} };
-var group = { $group: {_id: "$Crime type", "total": {$sum: 1}} };
-var sort = { $sort: {"total": -1} };
-var limit = { $limit : 5};
+var result = db.list.aggregate([
+	{ $match: {"Month": "2012-06"} }, 
+	{ $group: {_id: "$Crime type", "total": {$sum: 1}} }, 
+	{ $sort: {"total": -1} }, { $limit : 5}
+]);
 
-var results = db.list.aggregate(
-	match,
-	group,
-	sort,
-	limit
-);
-
-printjson(results);
-```
-[aggregation1.js](scripts/aggregation1.js)
-
-Wynik
-```js
-{ "_id" : "Anti-social behaviour", "total" : 204751 }
-{ "_id" : "Other theft", "total" : 61978 }
-{ "_id" : "Violent crime", "total" : 56816 }
-{ "_id" : "Criminal damage and arson", "total" : 44922 }
-{ "_id" : "Burglary", "total" : 38791 }
+printjson(result);
 
 ```
 
@@ -94,4 +79,31 @@ Wynik
 | Burglary 	| 38791 |
 
 ![aggr1](images/aggr1.png)
+
+--
+
+## Agregacja 2
+
+Krzywa ilości dokonanych włamań zgłoszonych przez Avon and Somerset Constabulary w latach 2010-2015:
+
+[JavaScript](scripts/aggregation2.js)
+```js
+var connection = new Mongo();
+var db = connection.getDB('Crimes');
+
+var result = db.list.aggregate([
+	{ $match: {"Reported by": "Avon and Somerset Constabulary"} },
+	{ $match: {"Crime type": "Burglary"} },
+	{ $group: {_id: "$Month", "total": {$sum: 1}} }, 
+	{ $sort: {"_id": -1} }
+]);
+
+printjson(result);
+
+```
+
+Wynik
+
+![aggr2](images/aggr2.png)
+
 
