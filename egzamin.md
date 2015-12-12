@@ -56,6 +56,7 @@ db.list.stats()
 Najczęstsze przestępstwa w czerwcu 2012 roku:
 
 [JavaScript](scripts/aggregation1.js)
+
 ```js
 var connection = new Mongo();
 var db = connection.getDB('Crimes');
@@ -87,6 +88,7 @@ printjson(result);
 Krzywa ilości dokonanych włamań zgłoszonych przez Avon and Somerset Constabulary w latach 2010-2015:
 
 [JavaScript](scripts/aggregation2.js)
+
 ```js
 var connection = new Mongo();
 var db = connection.getDB('Crimes');
@@ -105,5 +107,50 @@ printjson(result);
 Wynik
 
 ![aggr2](images/aggr2.png)
+--
+## Agregacja 3
+
+Rozkład przestępstw w 2014 roku:
+
+[JavaScript](scripts/aggregation3.js)
+
+```js
+var connection = new Mongo();
+var db = connection.getDB('Crimes');
+
+var result = db.list.aggregate([
+	{ $match: {"Month": { $regex: '2014-[0-9][0-9]', $options: 'g' }} },
+	{ $match: {
+		$or: [
+			{"Crime type":"Anti-social behaviour"},
+			{"Crime type":"Other crime"},
+			{"Crime type":"Burglary"},
+			{"Crime type":"Vehicle crime"},
+			{"Crime type":"Robbery"},
+			{"Crime type":"Violent crime"},
+			{"Crime type":"Other theft"},
+			{"Crime type":"Criminal damage and arson"},
+			{"Crime type":"Shoplifting"},
+			{"Crime type":"Drugs"},
+			{"Crime type":"Public disorder and weapons"},
+			{"Crime type":"Violence and sexual offences"},
+			{"Crime type":"Public order"},
+			{"Crime type":"Theft from the person"},
+			{"Crime type":"Possession of weapons"},
+			{"Crime type":"Bicycle theft"}
+		]}
+	},
+	{ $group: {_id: "$Crime type", "total": {$sum: 1}} }, 
+	{ $sort: {"_id": -1} }
+]);
+
+printjson(result);
+
+```
+
+Wynik
+
+![aggr3](images/aggr3.png)
+
 
 
