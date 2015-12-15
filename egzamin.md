@@ -4,6 +4,7 @@ MONGO 3.2.0
 
 #Spis treści
 - [Przygotowanie danych](#przygotowanie-danych)
+- [Agregacje](#agregacje)
 
 # Przygotowanie danych
 
