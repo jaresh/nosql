@@ -15,12 +15,10 @@
 
 # Przygotowanie danych
 
-
 [Przestępstwa popełnione w Wilekiej Brytani od grudnia 2010 do października 2015.](https://data.police.uk/data/)
 
-5.7 GB
-
 --
+
 Skrypt [imports.sh](scripts/imports.sh) do importu danych z plików .csv:
 ```bash
 
