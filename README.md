@@ -5,8 +5,7 @@ Rozwiązania zadań z przedmiotu *Bazy NoSQL*:
 1. [Zaliczenie](neo4j.md):
  - [x] Neo4j + Neo4j Spacial (lokalizacja)
 1. [Egzamin](egzamin.md)
- - [ ] Aggregation Pipeline
- - [ ] MapReduce
+ - [x] Aggregation Pipeline
 
 Informacje o komputerze na którym były wykonywane obliczenia:
 
