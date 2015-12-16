@@ -1,8 +1,8 @@
 # Aggregation Pipeline      
 ####Jacek Sikora 206232 <jaresh@wp.pl>
 
-Baza danych - MONGO 3.2.0
-Skrypty w JavaScript oraz Python.
+* Baza danych - MONGO 3.2.0
+* Skrypty w JavaScript oraz Python.
 
 #Spis treści
 - [Przygotowanie danych](#przygotowanie-danych)
@@ -93,6 +93,7 @@ db.list.aggregate([
 Krzywa ilości dokonanych włamań zgłoszonych przez Avon and Somerset Constabulary w latach 2010-2015:
 
 [JavaScript](scripts/aggregation2.js)
+[Python](scripts/aggregation2.py)
 
 ```js
 db.list.aggregate([
@@ -112,6 +113,7 @@ Wynik
 Rozkład przestępstw w 2014 roku:
 
 [JavaScript](scripts/aggregation3.js)
+[Python](scripts/aggregation3.py)
 
 ```js
 db.list.aggregate([
@@ -168,6 +170,7 @@ Wynik
 Porównanie przestępstw narkotykowych w 3 wybranych rejonach:
 
 [JavaScript](scripts/aggregation4.js)
+[Python](scripts/aggregation4.py)
 
 ```js
 db.list.aggregate([
@@ -202,6 +205,7 @@ Wynik
 Rozkład 3 przestępstw w czerwcu w latach 2013-2015:
 
 [JavaScript](scripts/aggregation5.js)
+[Python](scripts/aggregation5.py)
 
 ```js
 db.list.aggregate([
