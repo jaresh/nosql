@@ -1,10 +1,17 @@
 # Aggregation Pipeline      
 ####Jacek Sikora 206232 <jaresh@wp.pl>
-MONGO 3.2.0
+
+Baza danych - MONGO 3.2.0
+Skrypty w JavaScript oraz Python.
 
 #Spis treści
 - [Przygotowanie danych](#przygotowanie-danych)
 - [Agregacje](#agregacje)
+	* [1) Najczęstsze przestępstwa w czerwcu 2012 roku](#agregacja-1)
+	* [2) Krzywa ilości dokonanych włamań zgłoszonych przez Avon and Somerset Constabulary w latach 2010-2015](#agregacja-2)
+	* [3) Rozkład przestępstw w 2014 roku](#agregacja-3)
+	* [4) Porównanie przestępstw narkotykowych w 3 wybranych rejonach](#agregacja-4)
+	* [5) Rozkład 3 przestępstw w czerwcu w latach 2013-2015](#agregacja-5)
 
 # Przygotowanie danych
 
@@ -58,6 +65,7 @@ db.list.stats()
 Najczęstsze przestępstwa w czerwcu 2012 roku:
 
 [JavaScript](scripts/aggregation1.js)
+[Python](scripts/aggregation1.py)
 
 ```js
 db.list.aggregate([
